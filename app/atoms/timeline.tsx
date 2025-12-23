@@ -36,7 +36,8 @@ export default function Timeline() {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }} 
+            id="history"
         >
             <motion.div
                 initial={{ opacity: 0, y: -30 }}
@@ -63,7 +64,7 @@ export default function Timeline() {
                             transition={{ delay: 0.3, duration: 0.8 }}
                         >
                             <iframe
-                                src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=v2%3A2PACX-1vRWx87SdRdSS3bfV9UW-JglcrIVDak3muoeo7BcL9yAROx2XHlMC3U5O4HadjekGr0mzvziazSwuR8e&font=Default&lang=en&initial_zoom=2&height=650"
+                                src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=v2%3A2PACX-1vRWx87SdRdSS3bfV9UW-JglcrIVDak3muoeo7BcL9yAROx2XHlMC3U5O4HadjekGr0mzvziazSwuR8e&font=Default&lang=en&initial_zoom=2&width=100%25&height=650"
                                 className="w-full"
                                 height="650"
                                 frameBorder="0"

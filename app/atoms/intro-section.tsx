@@ -59,7 +59,7 @@ const badgeVariants = {
 
 export default function IntroSection() {
     return (
-        <section className="relative bg-gray-50 py-20 px-8 md:px-16 lg:px-32 xl:px-48 2xl:px-64 overflow-hidden">
+        <section id="intro" className="relative bg-gray-50 py-20 px-8 md:px-16 lg:px-32 xl:px-48 2xl:px-64 overflow-hidden">
             <div className="absolute inset-0 bg-repeat opacity-10" style={{ backgroundImage: "url('/textured/1.webp')" }} />
             <div className="absolute inset-0 bg-[radial-gradient(#00000008_1px,transparent_1px)] [background-size:20px_20px]" />
             <motion.div

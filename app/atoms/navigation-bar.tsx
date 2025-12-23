@@ -4,14 +4,28 @@ import { useState } from "react";
 
 const navigationList = [
     { name: "Home", href: "#" },
-    { name: "Intro", href: "#" },
-    { name: "History", href: "#" },
-    { name: "Map", href: "#" },
-    { name: "Education", href: "#" },
+    { name: "Intro", href: "#intro" },
+    { name: "History", href: "#history" },
+    { name: "Map", href: "#map" },
+    { name: "Education", href: "#education" },
 ];
 
 export default function NavigationBar() {
     const [activeItem, setActiveItem] = useState("Home");
+
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: { name: string; href: string }) => {
+        e.preventDefault();
+        setActiveItem(item.name);
+
+        if (item.href === "#") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+            const element = document.querySelector(item.href);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+    };
 
     return (
         <div className="sticky top-0 z-50 border-b-10 border-black-200 bg-white">
@@ -22,10 +36,14 @@ export default function NavigationBar() {
                     {navigationList.map((item) => (
                         <li
                             key={item.name}
-                            onClick={() => setActiveItem(item.name)}
                             className="relative cursor-pointer group"
                         >
-                            {item.name}
+                            <a
+                                href={item.href}
+                                onClick={(e) => handleNavClick(e, item)}
+                            >
+                                {item.name}
+                            </a>
                             <div className={`absolute bottom-0 left-0 h-1 bg-red-600 transition-all duration-500 ${activeItem === item.name
                                 ? "w-full"
                                 : "w-0 group-hover:w-full"

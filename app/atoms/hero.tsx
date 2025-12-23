@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 const backgroundImages = [
-    "/bg-batik.jpg",
-    "/386.jpg",
+    "/bg-batik.webp",
+    "/386.webp",
 ];
 
 export default function Hero() {

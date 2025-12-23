@@ -11,6 +11,8 @@ const cardVariants = cva(
         default: "shadow-shadow",
         red:
           "bg-black border-black shadow-[4px_4px_0px_0px_#ef4444] ",
+        white: 
+          "bg-white border-white shadow-[4px_4px_0px_0px_#d1d5db] ",
       },
     },
     defaultVariants: {

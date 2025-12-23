@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import Image from "next/image";
 
 export default function IntroSection() {
     return (
         <section className="relative bg-gray-50 py-20 px-8 md:px-16 lg:px-32 xl:px-48 2xl:px-64 overflow-hidden">
-            <div className="absolute inset-0 bg-repeat opacity-10" style={{ backgroundImage: "url('/textured/1.png')" }} />
+            <div className="absolute inset-0 bg-repeat opacity-10" style={{ backgroundImage: "url('/textured/1.webp')" }} />
             <div className="absolute inset-0 bg-[radial-gradient(#00000008_1px,transparent_1px)] [background-size:20px_20px]" />
             <div className="relative z-10 flex flex-col md:flex-row gap-14 items-start">
                 <div className="w-full md:w-1/2 space-y-8">
@@ -51,10 +52,11 @@ export default function IntroSection() {
                 <div className="w-full md:w-1/2 relative">
                     <Card className="" variant={"red"} >
                         <div className="aspect-[3/4] w-full">
-                            <img
-                                src="/tari-bali.jpg"
+                            <Image
+                                src="/Tari bali.webp"
                                 alt="Indonesian Culture"
                                 className="h-full w-full object-cover"
+                                fill
                             />
                         </div>
                     </Card>

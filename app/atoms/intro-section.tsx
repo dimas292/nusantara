@@ -1,29 +1,94 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.2,
+        },
+    },
+} as const;
+
+const itemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            type: "spring" as const,
+            stiffness: 100,
+            damping: 12,
+        },
+    },
+} as const;
+
+const imageVariants = {
+    hidden: { opacity: 0, scale: 0.8, rotate: -5 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        transition: {
+            type: "spring" as const,
+            stiffness: 80,
+            damping: 15,
+        },
+    },
+} as const;
+
+const badgeVariants = {
+    hidden: { opacity: 0, y: 20, rotate: 10 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        rotate: 0,
+        transition: {
+            type: "spring" as const,
+            stiffness: 120,
+            damping: 10,
+        },
+    },
+} as const;
 
 export default function IntroSection() {
     return (
         <section className="relative bg-gray-50 py-20 px-8 md:px-16 lg:px-32 xl:px-48 2xl:px-64 overflow-hidden">
             <div className="absolute inset-0 bg-repeat opacity-10" style={{ backgroundImage: "url('/textured/1.webp')" }} />
             <div className="absolute inset-0 bg-[radial-gradient(#00000008_1px,transparent_1px)] [background-size:20px_20px]" />
-            <div className="relative z-10 flex flex-col md:flex-row gap-14 items-start">
+            <motion.div
+                className="relative z-10 flex flex-col md:flex-row gap-14 items-start"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+            >
                 <div className="w-full md:w-1/2 space-y-8">
-                    <Button
-                        size="sm"
-                        className="bg-main text-white font-bold border-2 border-black shadow-shadow px-6"
-                    >
-                        INTRODUCTION
-                    </Button>
-                    <div className="space-y-2">
+                    <motion.div variants={itemVariants}>
+                        <Button
+                            size="sm"
+                            className="bg-main text-white font-bold border-2 border-black shadow-shadow px-6"
+                        >
+                            INTRODUCTION
+                        </Button>
+                    </motion.div>
+
+                    <motion.div className="space-y-2" variants={itemVariants}>
                         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
                             A Nation of
                         </h1>
                         <h1 className="text-4xl md:text-5xl font-extrabold text-main">
                             17,000 Stories
                         </h1>
-                    </div>
-                    <div className="space-y-6 text-lg leading-relaxed text-gray-800">
+                    </motion.div>
+
+                    <motion.div className="space-y-6 text-lg leading-relaxed text-gray-800" variants={itemVariants}>
                         <p>
                             Indonesia is not just a country it's a living museum of human
                             civilization. From the ancient temples of Java to the mystical
@@ -36,40 +101,63 @@ export default function IntroSection() {
                             cultural landscapes. Here, modernity dances with tradition,
                             creating a vibrant tapestry that continues to inspire the world.
                         </p>
-                    </div>
-                    <div className="flex gap-6 pt-6">
-                        <Card className="w-40 p-5 bg-slate-900 text-white border-2 border-black shadow-shadow">
-                            <p className="text-3xl font-extrabold">300+</p>
-                            <p className="text-sm mt-1 opacity-90">Ethnic Groups</p>
-                        </Card>
+                    </motion.div>
 
-                        <Card className="w-40 p-5 bg-main text-white border-2 border-black shadow-shadow">
-                            <p className="text-3xl font-extrabold">700+</p>
-                            <p className="text-sm mt-1 opacity-90">Languages</p>
+                    <motion.div className="flex gap-6 pt-6" variants={containerVariants}>
+                        <motion.div variants={itemVariants} whileHover={{ scale: 1.08, y: -5 }}>
+                            <Card className="w-40 p-5 bg-slate-900 text-white border-2 border-black shadow-shadow">
+                                <p className="text-3xl font-extrabold">300+</p>
+                                <p className="text-sm mt-1 opacity-90">Ethnic Groups</p>
+                            </Card>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants} whileHover={{ scale: 1.08, y: -5 }}>
+                            <Card className="w-40 p-5 bg-main text-white border-2 border-black shadow-shadow">
+                                <p className="text-3xl font-extrabold">700+</p>
+                                <p className="text-sm mt-1 opacity-90">Languages</p>
+                            </Card>
+                        </motion.div>
+                    </motion.div>
+                </div>
+
+                <motion.div
+                    className="w-full md:w-1/2 relative"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3, duration: 0.8 }}
+                >
+                    <motion.div variants={imageVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                        <Card className="" variant={"red"}>
+                            <div className="aspect-[3/4] w-full">
+                                <Image
+                                    src="/Tari bali.webp"
+                                    alt="Indonesian Culture"
+                                    className="h-full w-full object-cover"
+                                    fill
+                                />
+                            </div>
                         </Card>
-                    </div>
-                </div>
-                <div className="w-full md:w-1/2 relative">
-                    <Card className="" variant={"red"} >
-                        <div className="aspect-[3/4] w-full">
-                            <Image
-                                src="/Tari bali.webp"
-                                alt="Indonesian Culture"
-                                className="h-full w-full object-cover"
-                                fill
-                            />
-                        </div>
-                    </Card>
-                    <Card className="absolute -bottom-6 -left-6 bg-white border-2 border-black shadow-shadow px-5 py-4">
-                        <p className="font-bold text-main text-lg">
-                            Unity in Diversity
-                        </p>
-                        <p className="text-sm text-gray-700">
-                            Bhinneka Tunggal Ika
-                        </p>
-                    </Card>
-                </div>
-            </div>
+                    </motion.div>
+
+                    <motion.div
+                        variants={badgeVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.05, rotate: 5 }}
+                    >
+                        <Card className="absolute -bottom-6 -left-6 bg-white border-2 border-black shadow-shadow px-5 py-4">
+                            <p className="font-bold text-main text-lg">
+                                Unity in Diversity
+                            </p>
+                            <p className="text-sm text-gray-700">
+                                Bhinneka Tunggal Ika
+                            </p>
+                        </Card>
+                    </motion.div>
+                </motion.div>
+            </motion.div>
         </section>
     );
 }

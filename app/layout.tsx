@@ -11,6 +11,9 @@ const PoppinsFont = Poppins({
 export const metadata: Metadata = {
   title: "Nusantara",
   description: "The Archipelago of Knowledge",
+  icons: {
+    icon: "/textured/3.png",
+  },
 };
 
 export default function RootLayout({

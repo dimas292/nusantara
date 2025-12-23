@@ -5,9 +5,10 @@ export function TimelineHeader() {
         <div className="mx-auto mb-12 max-w-3xl text-center px-4">
             <Button
                 size="sm"
-                className="bg-main text-white font-bold border-2 border-black shadow-shadow px-6"
+                className="bg-main text-white font-bold  border-black  px-6"
+                variant={"white"}
             >
-                INTRODUCTION
+                History Timeline
             </Button>
 
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-white">

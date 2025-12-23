@@ -19,6 +19,8 @@ const buttonVariants = cva(
           "text-main-foreground bg-main border-2 border-border hover:translate-x-reverseBoxShadowX hover:translate-y-reverseBoxShadowY hover:shadow-shadow",
         red:
           "text-white bg-black border-2 border-black shadow-[4px_4px_0px_0px_#ef4444] hover:translate-x-1 hover:translate-y-1 hover:shadow-none",
+        white:
+          "text-black bg-white  shadow-[4px_4px_0px_0px_#d1d5db] hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none",
       },
       size: {
         default: "h-10 px-4 py-2",

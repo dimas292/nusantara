@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 
 const cardVariants = cva(
-  "rounded-none flex flex-col border-2  py-8 border-border bg-background text-foreground font-base",
+  "rounded-none flex flex-col border-2 py-4 sm:py-6 md:py-8 border-border bg-background text-foreground font-base",
   {
     variants: {
       variant: {
@@ -40,7 +40,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-header"
       className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-[data-slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-4 sm:px-6 has-[data-slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
         className,
       )}
       {...props}
@@ -85,7 +85,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-content"
-      className={cn("px-6", className)}
+      className={cn("px-4 sm:px-6", className)}
       {...props}
     />
   )
@@ -95,7 +95,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-footer"
-      className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
+      className={cn("flex items-center px-4 sm:px-6 [.border-t]:pt-6", className)}
       {...props}
     />
   )

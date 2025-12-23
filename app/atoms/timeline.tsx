@@ -32,7 +32,7 @@ const cardVariants = {
 export default function Timeline() {
     return (
         <motion.section
-            className="w-full py-16 bg-gradient-to-b from-[#0B1220] to-[#0F172A]"
+            className="w-full py-12 sm:py-14 md:py-16 bg-linear-to-b from-[#0B1220] to-[#0F172A]"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -49,7 +49,7 @@ export default function Timeline() {
             </motion.div>
 
             <motion.div
-                className="mx-auto px-4"
+                className="mx-auto px-4 sm:px-6 md:px-8 max-w-7xl"
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -65,10 +65,10 @@ export default function Timeline() {
                         >
                             <iframe
                                 src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=v2%3A2PACX-1vRWx87SdRdSS3bfV9UW-JglcrIVDak3muoeo7BcL9yAROx2XHlMC3U5O4HadjekGr0mzvziazSwuR8e&font=Default&lang=en&initial_zoom=2&width=100%25&height=650"
-                                className="w-full"
-                                height="650"
+                                className="w-full h-150 sm:h-162.5 md:h-150 lg:h-137.5 xl:h-125"
                                 frameBorder="0"
                                 allowFullScreen
+                                title="Indonesian History Timeline"
                             />
                         </motion.div>
                     </Card>

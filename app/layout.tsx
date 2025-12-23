@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   icons: {
     icon: "/textured/3.png",
   },
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+  themeColor: "#dc2626",
 };
 
 export default function RootLayout({
@@ -25,6 +27,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
         className={`${OswaldFont.variable} antialiased`}
       >

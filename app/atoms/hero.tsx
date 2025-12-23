@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const backgroundImages = [
@@ -20,9 +21,17 @@ export default function Hero() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
+        // Preload next image
         const nextIndex = (currentImageIndex + 1) % backgroundImages.length;
-        const imgElement = document.createElement("img");
-        imgElement.src = backgroundImages[nextIndex].src;
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.as = 'image';
+        link.href = backgroundImages[nextIndex].src;
+        document.head.appendChild(link);
+        
+        return () => {
+            document.head.removeChild(link);
+        };
     }, [currentImageIndex]);
 
     useEffect(() => {
@@ -35,21 +44,30 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative h-[700px] flex items-center justify-center overflow-hidden">
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000"
-                style={{
-                    backgroundImage: `url(${backgroundImages[currentImageIndex].src})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    opacity: isLoaded ? 1 : 0.9,
-                }}
-                onLoad={() => setIsLoaded(true)}
-            >
-                {!isLoaded && (
-                    <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 animate-pulse" />
-                )}
-            </div>
+        <section className="relative min-h-125 h-[70vh] sm:h-150 md:h-162.5 lg:h-175 flex items-center justify-center overflow-hidden">
+            {/* Background Images with Next.js Image optimization */}
+            {backgroundImages.map((img, index) => (
+                <div
+                    key={img.src}
+                    className={`absolute inset-0 transition-opacity duration-1000 ${
+                        index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                >
+                    <Image
+                        src={img.src}
+                        alt="Indonesian cultural background"
+                        fill
+                        priority={index === 0}
+                        quality={85}
+                        sizes="100vw"
+                        className="object-cover object-center"
+                        placeholder="blur"
+                        blurDataURL={img.placeholder}
+                        onLoad={() => index === currentImageIndex && setIsLoaded(true)}
+                    />
+                </div>
+            ))}
+            
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -60,13 +78,13 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="container mx-auto px-6 text-center relative z-10"
+                className="container mx-auto px-4 sm:px-6 md:px-8 text-center relative z-10"
             >
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.8 }}
-                    className="text-5xl md:text-6xl font-bold mb-6 text-white"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white"
                 >
                     Discover the
                 </motion.h1>
@@ -75,9 +93,9 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.6, type: "spring", stiffness: 100 }}
-                    className="bg-white border-6 border-black inline-block mb-6"
+                    className="bg-white border-4 sm:border-6 border-black inline-block mb-4 sm:mb-6"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold p-4 text-red-600">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold p-3 sm:p-4 text-red-600">
                         Soul of Indonesia
                     </h2>
                 </motion.div>
@@ -86,7 +104,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.8 }}
-                    className="text-lg md:text-xl text-white mb-8 max-w-3xl mx-auto"
+                    className="text-base sm:text-lg md:text-xl text-white mb-6 sm:mb-8 max-w-3xl mx-auto px-4"
                 >
                     Journey through 17,000 islands of rich culture, ancient traditions, and vibrant heritage
                 </motion.p>
@@ -98,7 +116,7 @@ export default function Hero() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <Button size="lg" variant={"red"} className="text-lg px-8 py-6 bg-white text-black ">
+                    <Button size="lg" variant={"red"} className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 bg-white text-black">
                         Start Exploring
                     </Button>
                 </motion.div>

@@ -66,10 +66,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply text-foreground font-base bg-background;
+    overflow-x: hidden;
   }
 
   h1,
@@ -79,5 +81,23 @@
   h5,
   h6 {
     @apply font-heading;
+  }
+
+  /* Optimize images for performance */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Better touch targets for mobile */
+  button,
+  a {
+    @apply min-h-11 inline-flex items-center justify-center;
+  }
+
+  /* Prevent text from being too small on mobile */
+  @media (max-width: 640px) {
+    body {
+      font-size: 16px; /* Prevents iOS zoom on input focus */
+    }
   }
 }

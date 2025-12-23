@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <Marquee className="py-4">
+      <Marquee className="py-2 sm:py-3 md:py-4">
         {Provinsi.map((prov, idx) => (
-          <span key={idx} className="text-xl font-bold">
+          <span key={idx} className="text-base sm:text-lg md:text-xl font-bold">
             {prov.name}
           </span>
         ))}

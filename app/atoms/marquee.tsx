@@ -51,7 +51,7 @@ export function Marquee({
             <div className={`w-full overflow-hidden bg-white ${className}`}>
                 <div
                     id={marqueeId}
-                    className="flex whitespace-nowrap gap-8"
+                    className="flex whitespace-nowrap gap-4 sm:gap-6 md:gap-8"
                 >
                     {children}
                     {children}

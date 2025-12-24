@@ -3,71 +3,30 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-const backgroundImages = [
-    {
-        src: "/bg-batik.webp",
-        placeholder: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 700'%3E%3Crect fill='%23333333' width='1920' height='700'/%3E%3C/svg%3E",
-    },
-    {
-        src: "/386.webp",
-        placeholder: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 700'%3E%3Crect fill='%23333333' width='1920' height='700'/%3E%3C/svg%3E",
-    },
-];
+const backgroundImage = {
+    src: "/386.webp",
+    placeholder: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 700'%3E%3Crect fill='%23333333' width='1920' height='700'/%3E%3C/svg%3E",
+};
 
 export default function Hero() {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    useEffect(() => {
-        // Preload next image
-        const nextIndex = (currentImageIndex + 1) % backgroundImages.length;
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.as = 'image';
-        link.href = backgroundImages[nextIndex].src;
-        document.head.appendChild(link);
-        
-        return () => {
-            document.head.removeChild(link);
-        };
-    }, [currentImageIndex]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-            setIsLoaded(false);
-        }, 7000);
-
-        return () => clearInterval(interval);
-    }, []);
 
     return (
         <section className="relative min-h-125 h-[70vh] sm:h-150 md:h-162.5 lg:h-175 flex items-center justify-center overflow-hidden">
-            {/* Background Images with Next.js Image optimization */}
-            {backgroundImages.map((img, index) => (
-                <div
-                    key={img.src}
-                    className={`absolute inset-0 transition-opacity duration-1000 ${
-                        index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                    }`}
-                >
-                    <Image
-                        src={img.src}
-                        alt="Indonesian cultural background"
-                        fill
-                        priority={index === 0}
-                        quality={85}
-                        sizes="100vw"
-                        className="object-cover object-center"
-                        placeholder="blur"
-                        blurDataURL={img.placeholder}
-                        onLoad={() => index === currentImageIndex && setIsLoaded(true)}
-                    />
-                </div>
-            ))}
-            
+            <div className="absolute inset-0">
+                <Image
+                    src={backgroundImage.src}
+                    alt="Indonesian cultural background"
+                    fill
+                    priority
+                    quality={85}
+                    sizes="100vw"
+                    className="object-cover object-center"
+                    placeholder="blur"
+                    blurDataURL={backgroundImage.placeholder}
+                />
+            </div>
+
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

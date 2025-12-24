@@ -67,11 +67,14 @@
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   body {
     @apply text-foreground font-base bg-background;
-    overflow-x: hidden;
+    overflow: visible;
+    width: 100%;
+    min-height: 100vh;
   }
 
   h1,
@@ -97,7 +100,8 @@
   /* Prevent text from being too small on mobile */
   @media (max-width: 640px) {
     body {
-      font-size: 16px; /* Prevents iOS zoom on input focus */
+      font-size: 16px;
+      /* Prevents iOS zoom on input focus */
     }
   }
 }

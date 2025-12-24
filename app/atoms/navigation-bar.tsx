@@ -1,7 +1,7 @@
 'use client';
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const navigationList = [
     { name: "Home", href: "#" },
@@ -14,6 +14,28 @@ const navigationList = [
 export default function NavigationBar() {
     const [activeItem, setActiveItem] = useState("Home");
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            
+            // Show navbar when scrolling up or at top
+            if (currentScrollY < lastScrollY || currentScrollY < 10) {
+                setIsVisible(true);
+            } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Hide navbar when scrolling down and past 100px
+                setIsVisible(false);
+                setMobileMenuOpen(false); // Close mobile menu when hiding
+            }
+            
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]);
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: { name: string; href: string }) => {
         e.preventDefault();
@@ -31,7 +53,9 @@ export default function NavigationBar() {
     };
 
     return (
-        <div className="sticky top-0 z-50 border-b-4 sm:border-b-6 md:border-b-10 border-black bg-white">
+        <div className={`fixed top-0 left-0 right-0 z-50 border-b-4 sm:border-b-6 md:border-b-10 border-black bg-white transition-transform duration-300 ${
+            isVisible ? 'translate-y-0' : '-translate-y-full'
+        }`}>
             <nav className="flex items-center justify-between p-4 sm:p-6 mx-4 sm:mx-8 md:mx-12 lg:mx-32 xl:mx-48 2xl:mx-64">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">Nusantara</h1>
                 
@@ -71,30 +95,41 @@ export default function NavigationBar() {
             </nav>
             
             {/* Mobile Navigation */}
-            {mobileMenuOpen && (
-                <div className="lg:hidden bg-white border-t-2 border-black">
-                    <ul className="flex flex-col p-4 space-y-2">
-                        {navigationList.map((item) => (
-                            <li key={item.name} className="relative">
-                                <a
-                                    href={item.href}
-                                    onClick={(e) => handleNavClick(e, item)}
-                                    className={`block py-3 px-4 text-lg font-semibold transition-colors ${
-                                        activeItem === item.name
-                                            ? "bg-red-600 text-white"
-                                            : "hover:bg-gray-100"
-                                    }`}
-                                >
-                                    {item.name}
-                                </a>
-                            </li>
-                        ))}
-                        <li className="pt-2">
-                            <Button variant={"red"} className="w-full sm:hidden">ID | EN</Button>
+            <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out border-t-2 border-black ${
+                mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 border-t-0'
+            }`}>
+                <ul className="flex flex-col p-4 space-y-2 bg-white">
+                    {navigationList.map((item, index) => (
+                        <li 
+                            key={item.name} 
+                            className="relative"
+                            style={{
+                                animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${index * 0.05}s both` : 'none'
+                            }}
+                        >
+                            <a
+                                href={item.href}
+                                onClick={(e) => handleNavClick(e, item)}
+                                className={`block py-3 px-4 text-lg font-semibold transition-colors rounded-md ${
+                                    activeItem === item.name
+                                        ? "bg-red-600 text-white"
+                                        : "hover:bg-gray-100"
+                                }`}
+                            >
+                                {item.name}
+                            </a>
                         </li>
-                    </ul>
-                </div>
-            )}
+                    ))}
+                    <li 
+                        className="pt-2"
+                        style={{
+                            animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${navigationList.length * 0.05}s both` : 'none'
+                        }}
+                    >
+                        <Button variant={"red"} className="w-full sm:hidden">ID | EN</Button>
+                    </li>
+                </ul>
+            </div>
         </div>
     );
 }

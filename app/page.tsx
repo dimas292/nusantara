@@ -1,3 +1,4 @@
+import ExploreMap from "./atoms/explore-map";
 import Hero from "./atoms/hero";
 import IntroSection from "./atoms/intro-section";
 import Marquee from "./atoms/marquee";
@@ -16,6 +17,7 @@ export default function Home() {
       </Marquee>
       <IntroSection />
       <Timeline />
+      <ExploreMap />
     </main>
   );
 }

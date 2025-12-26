@@ -138,4 +138,20 @@
   #map rect {
     shape-rendering: geometricPrecision;
   }
+ 
+  body.scrolling #map svg,
+  body.scrolling #map path,
+  body.scrolling #map circle,
+  body.scrolling #map rect {
+    pointer-events: none !important;
+    transition: none !important;
+  }
+
+  /* Hide map temporarily during fast scroll to reduce repaints */
+  @media (prefers-reduced-motion: no-preference) {
+    #explore-map-section {
+      content-visibility: auto;
+      contain-intrinsic-size: 0 800px;
+    }
+  }
 }

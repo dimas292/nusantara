@@ -68,7 +68,7 @@ export default function Timeline() {
                                     loading="lazy"
                                     title="Indonesian History Timeline"
                                     onLoad={() => {
-                                        setTimeout(() => setIsIframeReady(true), 500);
+                                        setTimeout(() => setIsIframeReady(true));
                                     }}
                                 />
                         </div>

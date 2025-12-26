@@ -4,9 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(93.3% 0.0339 17.77);
-  --secondary-background: oklch(100% 0 0);
-  --foreground: oklch(0% 0 0);
   --main-foreground: oklch(0% 0 0);
   --main: #dc2626;
   --border: oklch(0% 0 0);
@@ -22,10 +19,6 @@
 }
 
 .dark {
-  --background: oklch(24.95% 0.0491 20.19);
-  --secondary-background: oklch(23.93% 0 0);
-  --foreground: oklch(92.49% 0 0);
-  --main-foreground: oklch(0% 0 0);
   --main: #dc2626;
   --border: oklch(0% 0 0);
   --ring: oklch(100% 0 0);
@@ -120,32 +113,6 @@
     }
   }
 
-  /* Optimize SVG map rendering for better performance */
-  #map svg {
-    will-change: auto;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  #map svg * {
-    vector-effect: non-scaling-stroke;
-  }
-
-  /* Optimize map paths and shapes */
-  #map path,
-  #map circle,
-  #map rect {
-    shape-rendering: geometricPrecision;
-  }
- 
-  body.scrolling #map svg,
-  body.scrolling #map path,
-  body.scrolling #map circle,
-  body.scrolling #map rect {
-    pointer-events: none !important;
-    transition: none !important;
-  }
 
   /* Hide map temporarily during fast scroll to reduce repaints */
   @media (prefers-reduced-motion: no-preference) {

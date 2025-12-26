@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import React, { useState } from 'react';
 
 import { Provinces as provinces } from '@/app/constant/provinsi';
@@ -68,17 +67,47 @@ const IndonesiaMapCard = () => {
             </g>
           </svg>
           {hoveredProvince && (
-            <Card
-            variant={"red"}
-              className="fixed cursor-default z-999 pointer-events-none bg-white "
+            <div
+              className="fixed z-50 pointer-events-none animate-in fade-in-0 zoom-in-95 duration-200"
               style={{
                 left: `${tooltipPos.x + 15}px`,
                 top: `${tooltipPos.y - 10}px`,
                 transform: 'translateY(-100%)'
               }}
             >
-              <div className="font-semibold mx-4">{hoveredProvince}</div>
-            </Card>
+              <div className="relative">
+            
+                <div className="bg-black text-white relative overflow-visible p-2"> 
+                  <div className="font-bold text-sm whitespace-nowrap pl-2">
+                    {hoveredProvince}
+                  </div>
+                  
+                 
+                  <div className="absolute -top-0.5 -right-0.5 w-3 h-3 border-t-2 border-r-2 border-red-600"></div>
+                  <div className="absolute -top-0.5 -left-0.5 w-3 h-3 border-t-2 border-l-2 border-red-600"></div>
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 border-b-2 border-r-2 border-red-600"></div>
+                  <div className="absolute -bottom-0.5 -left-0.5 w-3 h-3 border-b-2 border-l-2 border-red-600"></div>
+                </div>
+               
+                <div 
+                  className="absolute left-4 top-full w-0 h-0 -mt-px"
+                  style={{
+                    borderLeft: '6px solid transparent',
+                    borderRight: '6px solid transparent',
+                    borderTop: '6px solid white',
+                  }}
+                >
+                  <div 
+                    className="absolute -top-2 -left-1.25"
+                    style={{
+                      borderLeft: '5px solid transparent',
+                      borderRight: '5px solid transparent',
+                      borderTop: '5px solid black',
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
           )}
       </section>
   );

@@ -32,19 +32,19 @@ export default function Hero() {
             <motion.div
                 initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
                 className="absolute inset-0 bg-black/60"
             />
             <motion.div
                 initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
                 className="container mx-auto px-4 sm:px-6 md:px-8 text-center relative z-10"
             >
                 <motion.h1
                     initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: shouldReduceMotion ? 0 : 0.2, duration: shouldReduceMotion ? 0 : 0.8 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.1, duration: shouldReduceMotion ? 0 : 0.5 }}
                     className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white"
                 >
                     Discover the
@@ -53,7 +53,7 @@ export default function Hero() {
                 <motion.div
                     initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: shouldReduceMotion ? 0 : 0.4, duration: shouldReduceMotion ? 0 : 0.6, type: "spring", stiffness: 100 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.2, duration: shouldReduceMotion ? 0 : 0.4, type: "spring", stiffness: 100 }}
                     className="bg-white border-4 sm:border-6 border-black inline-block mb-4 sm:mb-6"
                 >
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold p-3 sm:p-4 text-red-600">
@@ -64,7 +64,7 @@ export default function Hero() {
                 <motion.p
                     initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: shouldReduceMotion ? 0 : 0.6, duration: shouldReduceMotion ? 0 : 0.8 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.3, duration: shouldReduceMotion ? 0 : 0.5 }}
                     className="text-base sm:text-lg md:text-xl text-white mb-6 sm:mb-8 max-w-3xl mx-auto px-4"
                 >
                     Journey through 17,000 islands of rich culture, ancient traditions, and vibrant heritage
@@ -73,7 +73,7 @@ export default function Hero() {
                 <motion.div
                     initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: shouldReduceMotion ? 0 : 0.8, duration: shouldReduceMotion ? 0 : 0.8 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.4, duration: shouldReduceMotion ? 0 : 0.5 }}
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                 >

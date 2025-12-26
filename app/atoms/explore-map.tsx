@@ -1,6 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 declare global {
@@ -108,7 +110,7 @@ export default function ExploreMap() {
                     }
                 });
             },
-            { rootMargin: '300px' } // Load 300px before it enters viewport
+            { rootMargin: '300px' } 
         );
 
         if (sectionRef.current) {
@@ -196,24 +198,141 @@ export default function ExploreMap() {
                     <span className="font-semibold text-red-600">Click</span> on any province to discover rich knowledge and fascinating insights.
                     <span className="font-semibold text-red-600"> Hover</span> to preview each region&apos;s unique story.
                 </p>
-                {isMapVisible ? (
-                    <div
-                        ref={mapContainerRef}
-                        id="map"
-                        className={`transition-opacity duration-300 ${isMapLoaded ? 'opacity-100' : 'opacity-0'}`}
-                    />
-                ) : (
-                    <div className="w-full h-125 flex items-center justify-center bg-gray-50 rounded-lg">
-                        <div className="text-center">
-                            <div className="animate-pulse text-gray-400 mb-2">
-                                <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                            <p className="text-gray-500 text-sm">Loading interactive map...</p>
-                        </div>
-                    </div>
-                )}
+                
+                <div className="relative">
+                    {/* Animated Skeleton Loader with AnimatePresence */}
+                    <AnimatePresence>
+                        {(!isMapVisible || !isMapLoaded) && (
+                            <motion.div
+                                initial={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.6 }}
+                                className="w-full min-h-150 bg-linear-to-br from-gray-50 to-gray-100 rounded-xl border-2 border-gray-200 p-8"
+                            >
+                                <div className="max-w-4xl mx-auto space-y-6">
+                                    {/* Map outline skeleton */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.1 }}
+                                        className="relative"
+                                    >
+                                        {/* Indonesia map shape approximation with skeleton */}
+                                        <div className="relative h-100 flex items-center justify-center">
+                                            {/* Main islands skeleton */}
+                                            <div className="absolute inset-0 flex items-center justify-center gap-4">
+                                                {/* Sumatra */}
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.8 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: 0.2 }}
+                                                >
+                                                    <Skeleton className="w-24 h-48 rounded-3xl rotate-12 bg-gray-200" />
+                                                </motion.div>
+                                                
+                                                {/* Java */}
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.8 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: 0.3 }}
+                                                    className="flex flex-col gap-2"
+                                                >
+                                                    <Skeleton className="w-40 h-16 rounded-2xl bg-gray-200" />
+                                                    <Skeleton className="w-32 h-12 rounded-2xl ml-4 bg-gray-200" />
+                                                </motion.div>
+                                                
+                                                {/* Kalimantan */}
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.8 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: 0.4 }}
+                                                >
+                                                    <Skeleton className="w-32 h-32 rounded-3xl bg-gray-200" />
+                                                </motion.div>
+                                                
+                                                {/* Sulawesi */}
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.8 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: 0.5 }}
+                                                >
+                                                    <Skeleton className="w-20 h-40 rounded-3xl -rotate-12 bg-gray-200" />
+                                                </motion.div>
+                                                
+                                                {/* Papua */}
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.8 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: 0.6 }}
+                                                >
+                                                    <Skeleton className="w-28 h-24 rounded-3xl bg-gray-200" />
+                                                </motion.div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                    
+                                    {/* Province legend skeleton */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.7 }}
+                                        className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8"
+                                    >
+                                        {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+                                            <motion.div
+                                                key={item}
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.7 + index * 0.05 }}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <Skeleton className="w-4 h-4 rounded-full bg-gray-300" />
+                                                <Skeleton className="h-4 flex-1 bg-gray-200" />
+                                            </motion.div>
+                                        ))}
+                                    </motion.div>
+                                </div>
+                                
+                              
+                                <div className="absolute inset-0 flex items-center justify-center bg-white/40 backdrop-blur-[2px] rounded-xl">
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.3 }}
+                                        className="text-center space-y-3 bg-white/90 p-6 rounded-lg shadow-lg"
+                                    >
+                                        <div className="relative">
+                                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+                                            <motion.div
+                                                animate={{ scale: [1, 1.2, 1] }}
+                                                transition={{ repeat: Infinity, duration: 2 }}
+                                                className="absolute inset-0 flex items-center justify-center"
+                                            >
+                                                <svg className="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                                                </svg>
+                                            </motion.div>
+                                        </div>
+                                        <p className="text-gray-700 font-medium">Loading Interactive Map...</p>
+                                        <p className="text-gray-500 text-sm">Preparing Indonesia&apos;s provinces</p>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                    
+                   
+                    {isMapVisible && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isMapLoaded ? 1 : 0 }}
+                            transition={{ duration: 0.6 }}
+                            ref={mapContainerRef}
+                            id="map"
+                            className="min-h-150"
+                        />
+                    )}
+                </div>
             </div>
         </section>
     );

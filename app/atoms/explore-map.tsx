@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 declare global {
     interface Window {
@@ -92,38 +92,76 @@ interface MapData {
 
 export default function ExploreMap() {
     const mapContainerRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLDivElement>(null);
     const scriptsLoadedRef = useRef(false);
+    const [isMapVisible, setIsMapVisible] = useState(false);
+    const [isMapLoaded, setIsMapLoaded] = useState(false);
 
     useEffect(() => {
-        if (scriptsLoadedRef.current) return;
+        // Lazy load map scripts when section enters viewport
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !isMapVisible) {
+                        setIsMapVisible(true);
+                        observer.disconnect();
+                    }
+                });
+            },
+            { rootMargin: '300px' } // Load 300px before it enters viewport
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [isMapVisible]);
+
+    useEffect(() => {
+        if (!isMapVisible || scriptsLoadedRef.current) return;
 
         const loadMapScripts = async () => {
             try {
                 // Load mapdata.js first
                 const scriptMapData = document.createElement('script');
                 scriptMapData.src = '/vendor/updated/mapdata.js';
-                scriptMapData.async = false; // Load in order
+                scriptMapData.async = true; // Use async for better performance
+                scriptMapData.defer = true;
 
                 scriptMapData.onload = () => {
                     // Then load countrymap.js
                     const scriptCountryMap = document.createElement('script');
                     scriptCountryMap.src = '/vendor/updated/countrymap.js';
-                    scriptCountryMap.async = false;
+                    scriptCountryMap.async = true;
+                    scriptCountryMap.defer = true;
 
                     scriptCountryMap.onload = () => {
                         if (window.simplemaps_countrymap && window.simplemaps_countrymap.load) {
                             window.simplemaps_countrymap.load();
                             scriptsLoadedRef.current = true;
+                            setIsMapLoaded(true);
                         }
                     };
 
+                    scriptCountryMap.onerror = () => {
+                        console.error('Error loading countrymap.js');
+                        setIsMapLoaded(false);
+                    };
+
                     document.body.appendChild(scriptCountryMap);
+                };
+
+                scriptMapData.onerror = () => {
+                    console.error('Error loading mapdata.js');
+                    setIsMapLoaded(false);
                 };
 
                 document.body.appendChild(scriptMapData);
 
             } catch (error) {
                 console.error('Error loading map:', error);
+                setIsMapLoaded(false);
             }
         };
 
@@ -133,10 +171,11 @@ export default function ExploreMap() {
                 window.simplemaps_countrymap.delete();
             }
         };
-    }, []);
+    }, [isMapVisible]);
 
     return (
         <section
+            ref={sectionRef}
             className="w-full py-12 sm:py-14 md:py-16 bg-white"
             id="explore-map-section"
         >
@@ -157,10 +196,24 @@ export default function ExploreMap() {
                     <span className="font-semibold text-red-600">Click</span> on any province to discover rich knowledge and fascinating insights.
                     <span className="font-semibold text-red-600"> Hover</span> to preview each region&apos;s unique story.
                 </p>
-                <div
-                    ref={mapContainerRef}
-                    id="map"
-                />
+                {isMapVisible ? (
+                    <div
+                        ref={mapContainerRef}
+                        id="map"
+                        className={`transition-opacity duration-300 ${isMapLoaded ? 'opacity-100' : 'opacity-0'}`}
+                    />
+                ) : (
+                    <div className="w-full h-125 flex items-center justify-center bg-gray-50 rounded-lg">
+                        <div className="text-center">
+                            <div className="animate-pulse text-gray-400 mb-2">
+                                <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
+                                </svg>
+                            </div>
+                            <p className="text-gray-500 text-sm">Loading interactive map...</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );

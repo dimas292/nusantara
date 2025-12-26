@@ -1,81 +1,69 @@
 'use client';
 import { Card } from "@/components/ui/card"
 import { TimelineHeader } from "../molecules/timeline-header";
-import { motion } from "framer-motion";
-
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.2,
-            delayChildren: 0.1,
-        },
-    },
-} as const;
-
-const cardVariants = {
-    hidden: { opacity: 0, y: 50, rotate: -2 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        rotate: 0,
-        transition: {
-            type: "spring" as const,
-            stiffness: 100,
-            damping: 15,
-            duration: 0.6,
-        },
-    },
-} as const;
+import { useEffect, useRef, useState } from "react";
 
 export default function Timeline() {
+    const [isIframeLoaded, setIsIframeLoaded] = useState(false);
+    const iframeRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // Lazy load iframe when it enters viewport
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !isIframeLoaded) {
+                        setIsIframeLoaded(true);
+                        observer.disconnect();
+                    }
+                });
+            },
+            { rootMargin: '200px' } // Load 200px before it enters viewport
+        );
+
+        if (iframeRef.current) {
+            observer.observe(iframeRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [isIframeLoaded]);
+
     return (
-        <motion.section
+        <section
             className="w-full py-12 sm:py-14 md:py-16 bg-linear-to-b from-[#0B1220] to-[#0F172A]"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
             id="history"
         >
-            <motion.div
-                initial={{ opacity: 0, y: -30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, type: "spring" }}
-            >
+            <div>
                 <TimelineHeader />
-            </motion.div>
+            </div>
 
-            <motion.div
-                className="mx-auto px-4 sm:px-6 md:px-8 max-w-7xl"
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-            >
-                <div>
+            <div className="mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+                <div ref={iframeRef}>
                     <Card className="p-0 m-0 bg-white" variant="red">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.3, duration: 0.8 }}
-                        >
-                            <iframe
-                                src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=v2%3A2PACX-1vRWx87SdRdSS3bfV9UW-JglcrIVDak3muoeo7BcL9yAROx2XHlMC3U5O4HadjekGr0mzvziazSwuR8e&font=Default&lang=en&initial_zoom=2&width=100%25&height=700"
-                                className="w-full h-[700px] border-0"
-                                scrolling="no"
-                                style={{ overflow: 'hidden' }}
-                                frameBorder="0"
-                                allowFullScreen
-                                title="Indonesian History Timeline"
-                            />
-                        </motion.div>
+                        <div>
+                            {isIframeLoaded ? (
+                                <iframe
+                                    src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=v2%3A2PACX-1vRWx87SdRdSS3bfV9UW-JglcrIVDak3muoeo7BcL9yAROx2XHlMC3U5O4HadjekGr0mzvziazSwuR8e&font=Default&lang=en&initial_zoom=2&width=100%25&height=700"
+                                    className="w-full h-175 border-0"
+                                    scrolling="no"
+                                    style={{ overflow: 'hidden' }}
+                                    frameBorder="0"
+                                    allowFullScreen
+                                    loading="lazy"
+                                    title="Indonesian History Timeline"
+                                />
+                            ) : (
+                                <div className="w-full h-175 flex items-center justify-center bg-gray-100">
+                                    <div className="text-center">
+                                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+                                        <p className="text-gray-600">Loading Timeline...</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </Card>
                 </div>
-            </motion.div>
-        </motion.section>
+            </div>
+        </section>
     );
 }

@@ -1,13 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Oswald, Poppins } from "next/font/google";
+import { Oswald } from "next/font/google";
 import "./globals.css";
 import NavigationBar from "./atoms/navigation-bar";
-
 
 const OswaldFont = Oswald({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-oswald",
+  display: "swap", // Ensure text remains visible during font load
+  preload: true,
+  adjustFontFallback: true,
 })
 
 export const metadata: Metadata = {

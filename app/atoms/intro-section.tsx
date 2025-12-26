@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -58,21 +58,23 @@ const badgeVariants = {
 } as const;
 
 export default function IntroSection() {
+    const shouldReduceMotion = useReducedMotion();
+    
     return (
         <section id="intro" className="relative bg-gray-50 py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-48 overflow-hidden">
             <div 
                 className="absolute inset-0 bg-repeat opacity-10" 
                 style={{ 
-                    backgroundImage: "url('/textured/1.webp')",
+                    backgroundImage: "url('https://res.cloudinary.com/dmx8hcmxh/image/upload/v1766741471/1_we60wq.webp')",
                     backgroundSize: 'auto'
                 }} 
             />
             <div className="absolute inset-0 bg-[radial-gradient(#00000008_1px,transparent_1px)] bg-size-[20px_20px]" />
             <motion.div
                 className="relative z-10 flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-14 items-start max-w-7xl mx-auto"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
+                variants={shouldReduceMotion ? undefined : containerVariants}
+                initial={shouldReduceMotion ? "visible" : "hidden"}
+                whileInView={shouldReduceMotion ? undefined : "visible"}
                 viewport={{ once: true, amount: 0.2 }}
             >
                 <div className="w-full lg:w-1/2 space-y-6 md:space-y-8">
@@ -137,7 +139,7 @@ export default function IntroSection() {
                         <Card className="relative" variant={"red"}>
                             <div className="aspect-3/4 w-full relative">
                                 <Image
-                                    src="/Tari bali.webp"
+                                    src="https://res.cloudinary.com/dmx8hcmxh/image/upload/v1766741450/Tari_bali_axjafm.webp"
                                     alt="Indonesian Culture"
                                     className="h-full w-full object-cover"
                                     fill

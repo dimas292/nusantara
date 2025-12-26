@@ -1,14 +1,15 @@
+'use client'
+
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
-
 import { Provinces as provinces } from '@/app/constant/provinsi';
 
 const IndonesiaMapCard = () => {
-  const [hoveredProvince, setHoveredProvince] = useState<string | null>(null);
+  const [hoveredProvince, setHoveredProvince] = useState<typeof provinces[0] | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
-  const handleMouseMove = (e: React.MouseEvent<SVGPathElement>, title: string) => {
+  const handleMouseMove = (e: React.MouseEvent<SVGPathElement>, province: typeof provinces[0]) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    setHoveredProvince(title);
+    setHoveredProvince(province);
     setTooltipPos({
       x: e.clientX,
       y: e.clientY
@@ -52,13 +53,13 @@ const IndonesiaMapCard = () => {
                   id={province.id}
                   d={province.path}
                   className="transition-all duration-200 cursor-pointer"
-                  fill={hoveredProvince === province.title ? "#000000" : "#dc2626"}
+                  fill={hoveredProvince?.title === province.title ? "#000000" : "#dc2626"}
                   stroke="#ffffff"
                   strokeWidth="0.5"
-                  onMouseMove={(e) => handleMouseMove(e, province.title)}
+                  onMouseMove={(e) => handleMouseMove(e, province)}
                   onMouseLeave={handleMouseLeave}
                   style={{
-                    filter: hoveredProvince === province.title 
+                    filter: hoveredProvince?.title === province.title 
                       ? 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))' 
                       : 'none'
                   }}
@@ -75,36 +76,29 @@ const IndonesiaMapCard = () => {
                 transform: 'translateY(-100%)'
               }}
             >
-              <div className="relative">
+              <div className="relative flex flex-col items-start gap-2">
+                {/* Image */}
+                {hoveredProvince.image_url && (
+                  <div className="w-48 h-32 rounded-lg overflow-hidden border-4 border-black shadow-shadow">
+                    <img 
+                      src={hoveredProvince.image_url}
+                      alt={hoveredProvince.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
             
+                {/* Tooltip */}
                 <div className="bg-black text-white relative overflow-visible p-2"> 
                   <div className="font-bold text-sm whitespace-nowrap pl-2">
-                    {hoveredProvince}
+                    {hoveredProvince.title}
                   </div>
                   
-                 
+               
                   <div className="absolute -top-0.5 -right-0.5 w-3 h-3 border-t-2 border-r-2 border-red-600"></div>
                   <div className="absolute -top-0.5 -left-0.5 w-3 h-3 border-t-2 border-l-2 border-red-600"></div>
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 border-b-2 border-r-2 border-red-600"></div>
                   <div className="absolute -bottom-0.5 -left-0.5 w-3 h-3 border-b-2 border-l-2 border-red-600"></div>
-                </div>
-               
-                <div 
-                  className="absolute left-4 top-full w-0 h-0 -mt-px"
-                  style={{
-                    borderLeft: '6px solid transparent',
-                    borderRight: '6px solid transparent',
-                    borderTop: '6px solid white',
-                  }}
-                >
-                  <div 
-                    className="absolute -top-2 -left-1.25"
-                    style={{
-                      borderLeft: '5px solid transparent',
-                      borderRight: '5px solid transparent',
-                      borderTop: '5px solid black',
-                    }}
-                  />
                 </div>
               </div>
             </div>

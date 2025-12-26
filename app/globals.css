@@ -119,4 +119,23 @@
       transform: translateX(0);
     }
   }
+
+  /* Optimize SVG map rendering for better performance */
+  #map svg {
+    will-change: auto;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #map svg * {
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* Optimize map paths and shapes */
+  #map path,
+  #map circle,
+  #map rect {
+    shape-rendering: geometricPrecision;
+  }
 }

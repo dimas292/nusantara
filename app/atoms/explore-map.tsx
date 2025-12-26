@@ -98,6 +98,7 @@ export default function ExploreMap() {
     const scriptsLoadedRef = useRef(false);
     const [isMapVisible, setIsMapVisible] = useState(false);
     const [isMapLoaded, setIsMapLoaded] = useState(false);
+    const [isMapReady, setIsMapReady] = useState(false);
 
     useEffect(() => {
         // Lazy load map scripts when section enters viewport
@@ -110,7 +111,7 @@ export default function ExploreMap() {
                     }
                 });
             },
-            { rootMargin: '300px' } 
+            { rootMargin: '200px' } // Reduced from 300px to 200px
         );
 
         if (sectionRef.current) {
@@ -125,24 +126,30 @@ export default function ExploreMap() {
 
         const loadMapScripts = async () => {
             try {
-                // Load mapdata.js first
+                // Load mapdata.js first (new version without heavy images)
                 const scriptMapData = document.createElement('script');
-                scriptMapData.src = '/vendor/updated/mapdata.js';
+                scriptMapData.src = '/vendor/mapdata.js';
                 scriptMapData.async = true; // Use async for better performance
                 scriptMapData.defer = true;
 
                 scriptMapData.onload = () => {
                     // Then load countrymap.js
                     const scriptCountryMap = document.createElement('script');
-                    scriptCountryMap.src = '/vendor/updated/countrymap.js';
+                    scriptCountryMap.src = '/vendor/html5countrymapv4.5/countrymap.js';
                     scriptCountryMap.async = true;
                     scriptCountryMap.defer = true;
 
                     scriptCountryMap.onload = () => {
                         if (window.simplemaps_countrymap && window.simplemaps_countrymap.load) {
-                            window.simplemaps_countrymap.load();
-                            scriptsLoadedRef.current = true;
-                            setIsMapLoaded(true);
+                            // Add a small delay to ensure smooth rendering
+                            requestAnimationFrame(() => {
+                                window.simplemaps_countrymap.load();
+                                scriptsLoadedRef.current = true;
+                                setIsMapLoaded(true);
+                                
+                                // Mark map as ready after a short delay
+                                setTimeout(() => setIsMapReady(true), 800);
+                            });
                         }
                     };
 
@@ -180,6 +187,10 @@ export default function ExploreMap() {
             ref={sectionRef}
             className="w-full py-12 sm:py-14 md:py-16 bg-white"
             id="explore-map-section"
+            style={{
+                contentVisibility: isMapVisible ? 'auto' : 'auto',
+                containIntrinsicSize: isMapVisible ? 'auto' : '1000px',
+            }}
         >
             <div className="container mx-auto px-4 sm:px-6 md:px-8 text-center mb-6">
                 <Button
@@ -321,7 +332,7 @@ export default function ExploreMap() {
                         )}
                     </AnimatePresence>
                     
-                   
+                    {/* Actual Map with optimized rendering */}
                     {isMapVisible && (
                         <motion.div
                             initial={{ opacity: 0 }}
@@ -330,6 +341,11 @@ export default function ExploreMap() {
                             ref={mapContainerRef}
                             id="map"
                             className="min-h-150"
+                            style={{
+                                willChange: isMapReady ? 'auto' : 'opacity',
+                                pointerEvents: isMapReady ? 'auto' : 'none',
+                                contain: 'layout style paint',
+                            }}
                         />
                     )}
                 </div>

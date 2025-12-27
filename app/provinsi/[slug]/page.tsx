@@ -2,6 +2,7 @@ import { Provinces } from "@/app/constant/provinsi";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface ProvincePageProps {
   params: Promise<{
@@ -45,13 +46,13 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="relative h-[400px] w-full overflow-hidden">
+      <div className="relative h-[600px] w-full overflow-hidden">
         {province.image_url && (
           <Image
             src={province.image_url}
             alt={province.title}
             fill
-            className="object-cover"
+            className="object-cover opacity-0/60 animate-fadeIn"
             priority
           />
         )}
@@ -154,14 +155,14 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
             </div>
           )}
         </div>
-        <div className="text-center">
+        <Button className="bg-main text-white font-bold border-2 border-black shadow-shadow px-4 sm:px-6 text-sm sm:text-base">
           <Link
             href="/#map"
-            className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+            className=""
           >
-            ← Kembali ke Peta
+            Back
           </Link>
-        </div>
+        </Button>
       </div>
     </div>
   );

@@ -3,10 +3,13 @@
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { Provinces as provinces } from '@/app/constant/provinsi';
+import { useRouter } from 'next/navigation';
 
 const IndonesiaMapCard = () => {
+  const router = useRouter();
   const [hoveredProvince, setHoveredProvince] = useState<typeof provinces[0] | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  
   const handleMouseMove = (e: React.MouseEvent<SVGPathElement>, province: typeof provinces[0]) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setHoveredProvince(province);
@@ -18,6 +21,10 @@ const IndonesiaMapCard = () => {
 
   const handleMouseLeave = () => {
     setHoveredProvince(null);
+  };
+
+  const handleProvinceClick = (province: typeof provinces[0]) => {
+    router.push(`/provinsi/${province.id.toLowerCase()}`);
   };
 
   return (
@@ -58,6 +65,7 @@ const IndonesiaMapCard = () => {
                   strokeWidth="0.5"
                   onMouseMove={(e) => handleMouseMove(e, province)}
                   onMouseLeave={handleMouseLeave}
+                  onClick={() => handleProvinceClick(province)}
                   style={{
                     filter: hoveredProvince?.title === province.title 
                       ? 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))' 
@@ -77,18 +85,12 @@ const IndonesiaMapCard = () => {
               }}
             >
               <div className="relative flex flex-col items-start gap-2">
-                {/* Image */}
-                {hoveredProvince.image_url && (
-                  <div className="w-48 h-32 rounded-lg overflow-hidden border-4 border-black shadow-shadow">
-                    <img 
-                      src={hoveredProvince.image_url}
-                      alt={hoveredProvince.title}
-                      className="w-full h-full object-cover"
-                    />
+                {hoveredProvince.short_description && (
+                  <div className="w-48 h-auto overflow-hidden border-2 border-black bg-white p-2">
+                    <p className="text-black text-sm">{hoveredProvince.short_description}</p>
                   </div>
                 )}
-            
-                {/* Tooltip */}
+          
                 <div className="bg-black text-white relative overflow-visible p-2"> 
                   <div className="font-bold text-sm whitespace-nowrap pl-2">
                     {hoveredProvince.title}

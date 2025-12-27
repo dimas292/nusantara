@@ -5,7 +5,7 @@ import Hero from "./atoms/hero";
 import IntroSection from "./atoms/intro-section";
 import Marquee from "./atoms/marquee";
 import { Provinces } from './constant/provinsi';
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, Key } from 'react';
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, Key, useEffect } from 'react';
 import IndonesiaMapCard from './atoms/map-indonesia';
 const Timeline = dynamic(() => import('./atoms/timeline'), {
   loading: () => (
@@ -20,6 +20,20 @@ const Timeline = dynamic(() => import('./atoms/timeline'), {
 });
 
 export default function Home() {
+  useEffect(() => {
+    // Handle hash navigation when coming from detail page
+    const hash = window.location.hash;
+    if (hash === '#map') {
+      // Wait for content to render, then scroll
+      setTimeout(() => {
+        const mapElement = document.getElementById('map');
+        if (mapElement) {
+          mapElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <main>
       <Hero />

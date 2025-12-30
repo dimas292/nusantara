@@ -6,7 +6,7 @@ export default function Hero2() {
                     <h1 className="text-2xl sm:text-[2.5rem] lg:text-5xl xl:text-[3.5rem] mb-4 sm:mb-5 lg:mb-6 text-black font-extrabold px-4 sm:px-8 lg:px-16 xl:px-24">
                         Discover the  <span className="bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">Soul of Indonesia</span>
                     </h1>
-                    <p className="text-red-700 sm:text-lg lg:text-2xl xl:text-[1.75rem] mb-6 sm:mb-8 lg:mb-8  px-4 sm:px-8 lg:px-16 xl:px-24">
+                    <p className="text-red sm:text-lg lg:text-2xl xl:text-[1.75rem] mb-6 sm:mb-8 lg:mb-8  px-4 sm:px-8 lg:px-16 xl:px-24">
                         Journey through 17,000 islands of rich culture, ancient
                         traditions, and vibrant heritage
                     </p>

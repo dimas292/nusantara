@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <div className="relative h-[400px] w-full overflow-hidden bg-gray-200 animate-pulse">
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <div className="container mx-auto max-w-6xl">
@@ -25,7 +25,7 @@ export default function Loading() {
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div
               key={i}
-              className="bg-gray-100 p-6 rounded-lg animate-pulse"
+              className="backdrop-blur-xl bg-white/80 p-6 rounded-2xl shadow-2xl border border-white/20 animate-pulse"
             >
               <div className="h-4 bg-gray-200 rounded w-1/2 mb-2" />
               <div className="h-6 bg-gray-300 rounded w-3/4" />

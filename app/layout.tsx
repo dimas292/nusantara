@@ -46,7 +46,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${OswaldFont.variable} antialiased`}
+        className={`${OswaldFont.variable} antialiased bg-gradient-to-br from-gray-50 via-white to-blue-50`}
       >
         <NavigationBar />
         {children}

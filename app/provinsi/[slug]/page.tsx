@@ -45,7 +45,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <div className="relative h-[600px] w-full overflow-hidden">
         {province.image_url && (
           <Image
@@ -56,8 +56,8 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
             priority
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-8">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent backdrop-blur-sm" />
+        <div className="absolute bottom-0 left-0 right-0 p-8 backdrop-blur-xl bg-black/30">
           <div className="container mx-auto max-w-6xl">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
               {province.title}
@@ -89,7 +89,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {province.capital && (
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <div className="backdrop-blur-xl bg-white/80 p-6 rounded-2xl shadow-2xl border border-white/20">
               <h3 className="text-sm font-semibold text-gray-500 mb-2">
                 Ibu Kota
               </h3>
@@ -100,7 +100,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
           )}
 
           {province.population && (
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <div className="backdrop-blur-xl bg-white/80 p-6 rounded-2xl shadow-2xl border border-white/20">
               <h3 className="text-sm font-semibold text-gray-500 mb-2">
                 Populasi
               </h3>
@@ -111,7 +111,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
           )}
 
           {province.area_km2 && (
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <div className="backdrop-blur-xl bg-white/80 p-6 rounded-2xl shadow-2xl border border-white/20">
               <h3 className="text-sm font-semibold text-gray-500 mb-2">
                 Luas Wilayah
               </h3>
@@ -122,7 +122,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
           )}
 
           {province.region && (
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <div className="backdrop-blur-xl bg-white/80 p-6 rounded-2xl shadow-2xl border border-white/20">
               <h3 className="text-sm font-semibold text-gray-500 mb-2">
                 Region
               </h3>
@@ -133,7 +133,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
           )}
 
           {province.island && (
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <div className="backdrop-blur-xl bg-white/80 p-6 rounded-2xl shadow-2xl border border-white/20">
               <h3 className="text-sm font-semibold text-gray-500 mb-2">
                 Pulau
               </h3>
@@ -144,7 +144,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
           )}
 
           {province.coordinates && (
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <div className="backdrop-blur-xl bg-white/80 p-6 rounded-2xl shadow-2xl border border-white/20">
               <h3 className="text-sm font-semibold text-gray-500 mb-2">
                 Koordinat
               </h3>
@@ -155,7 +155,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
             </div>
           )}
         </div>
-        <Button className="bg-main text-white font-bold border-2 border-black shadow-shadow px-4 sm:px-6 text-sm sm:text-base">
+        <Button className="backdrop-blur-xl bg-gradient-to-r from-red-600 to-red-800 text-white font-bold border border-white/20 shadow-2xl rounded-full px-6 sm:px-8 text-sm sm:text-base">
           <Link
             href="/#map"
             className=""

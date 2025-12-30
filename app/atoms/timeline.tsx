@@ -9,7 +9,7 @@ export default function Timeline() {
 
     return (
         <section
-            className="w-full py-12 sm:py-14 md:py-16 bg-linear-to-b from-[#0B1220] to-[#0F172A]"
+            className="w-full py-12 sm:py-14 md:py-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
             id="history"
         >
             <div>
@@ -18,7 +18,7 @@ export default function Timeline() {
 
             <div className="mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
                 <div>
-                    <Card className="p-0 m-0 bg-white" variant="red">
+                    <Card className="p-0 m-0 backdrop-blur-xl bg-white/95 border border-white/20 shadow-2xl rounded-3xl overflow-hidden" variant="red">
                         <div className="relative">
                             <AnimatePresence>
                                 {!isIframeReady && (

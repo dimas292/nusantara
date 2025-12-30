@@ -59,15 +59,15 @@ const badgeVariants = {
 
 export default function IntroSection() {
     const shouldReduceMotion = useReducedMotion();
-    
+
     return (
-        <section id="intro" className="relative bg-gray-50 py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-48 overflow-hidden">
-            <div 
-                className="absolute inset-0 bg-repeat opacity-10" 
-                style={{ 
+        <section id="intro" className="relative bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-48 overflow-hidden">
+            <div
+                className="absolute inset-0 bg-repeat opacity-10"
+                style={{
                     backgroundImage: "url('https://res.cloudinary.com/dmx8hcmxh/image/upload/v1766741471/1_we60wq.webp')",
                     backgroundSize: 'auto'
-                }} 
+                }}
             />
             <div className="absolute inset-0 bg-[radial-gradient(#00000008_1px,transparent_1px)] bg-size-[20px_20px]" />
             <motion.div
@@ -79,12 +79,6 @@ export default function IntroSection() {
             >
                 <div className="w-full lg:w-1/2 space-y-6 md:space-y-8">
                     <motion.div variants={itemVariants}>
-                        <Button
-                            size="sm"
-                            className="bg-main text-white font-bold border-2 border-black shadow-shadow px-4 sm:px-6 text-sm sm:text-base"
-                        >
-                            INTRODUCTION
-                        </Button>
                     </motion.div>
 
                     <motion.div className="space-y-2" variants={itemVariants}>
@@ -113,14 +107,14 @@ export default function IntroSection() {
 
                     <motion.div className="flex flex-wrap gap-4 md:gap-6 pt-4 md:pt-6" variants={containerVariants}>
                         <motion.div variants={itemVariants} whileHover={{ scale: 1.08, y: -5 }}>
-                            <Card className="w-36 sm:w-40 p-4 sm:p-5 bg-slate-900 text-white border-2 border-black shadow-shadow">
+                            <Card className="w-36 sm:w-40 p-4 sm:p-5 backdrop-blur-xl bg-slate-900/80 text-white border border-white/20 shadow-2xl rounded-2xl">
                                 <p className="text-2xl sm:text-3xl font-extrabold">300+</p>
                                 <p className="text-xs sm:text-sm mt-1 opacity-90">Ethnic Groups</p>
                             </Card>
                         </motion.div>
 
                         <motion.div variants={itemVariants} whileHover={{ scale: 1.08, y: -5 }}>
-                            <Card className="w-36 sm:w-40 p-4 sm:p-5 bg-main text-white border-2 border-black shadow-shadow">
+                            <Card className="w-36 sm:w-40 p-4 sm:p-5 backdrop-blur-xl bg-gradient-to-br from-red-600 to-red-800 text-white border border-white/20 shadow-2xl rounded-2xl">
                                 <p className="text-2xl sm:text-3xl font-extrabold">700+</p>
                                 <p className="text-xs sm:text-sm mt-1 opacity-90">Languages</p>
                             </Card>
@@ -136,7 +130,7 @@ export default function IntroSection() {
                     transition={{ delay: 0.3, duration: 0.8 }}
                 >
                     <motion.div variants={imageVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                        <Card className="relative" variant={"red"}>
+                        <div className="relative rounded-3xl overflow-hidden" >
                             <div className="aspect-3/4 w-full relative">
                                 <Image
                                     src="https://res.cloudinary.com/dmx8hcmxh/image/upload/v1766741450/Tari_bali_axjafm.webp"
@@ -148,7 +142,7 @@ export default function IntroSection() {
                                     loading="lazy"
                                 />
                             </div>
-                        </Card>
+                        </div>
                     </motion.div>
 
                     <motion.div
@@ -158,8 +152,8 @@ export default function IntroSection() {
                         viewport={{ once: true }}
                         whileHover={{ scale: 1.05, rotate: 5 }}
                     >
-                        <Card className="absolute -bottom-4 sm:-bottom-6 -left-4 sm:-left-6 bg-white border-2 border-black shadow-shadow px-4 sm:px-5 py-3 sm:py-4">
-                            <p className="font-bold text-main text-base sm:text-lg">
+                        <Card className="absolute -bottom-4 sm:-bottom-6 -left-4 sm:-left-6 backdrop-blur-xl bg-white/90 border border-white/20 shadow-2xl rounded-2xl px-4 sm:px-5 py-3 sm:py-4">
+                            <p className="font-bold bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent text-base sm:text-lg">
                                 Unity in Diversity
                             </p>
                             <p className="text-xs sm:text-sm text-gray-700">

@@ -20,16 +20,16 @@ export default function NavigationBar() {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            
-            // Show navbar when scrolling up or at top
+
+           
             if (currentScrollY < lastScrollY || currentScrollY < 10) {
                 setIsVisible(true);
             } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                // Hide navbar when scrolling down and past 100px
+               
                 setIsVisible(false);
-                setMobileMenuOpen(false); // Close mobile menu when hiding
+                setMobileMenuOpen(false); 
             }
-            
+
             setLastScrollY(currentScrollY);
         };
 
@@ -53,12 +53,11 @@ export default function NavigationBar() {
     };
 
     return (
-        <div className={`fixed top-0 left-0 right-0 z-50 border-b-4 sm:border-b-6 md:border-b-10 border-black bg-white transition-transform duration-300 ${
-            isVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}>
-            <nav className="flex items-center justify-between p-4 sm:p-6 mx-4 sm:mx-8 md:mx-12 lg:mx-32 xl:mx-48 2xl:mx-64">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">Nusantara</h1>
-                
+        <div className={`fixed top-4 left-4 right-4 z-50 backdrop-blur-xl bg-white/70 border border-white/20 shadow-2xl rounded-2xl transition-all duration-300 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
+            }`}>
+            <nav className="flex items-center justify-between p-4 sm:p-6 mx-2 sm:mx-4 md:mx-6 lg:mx-8">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">Nusantara</h1>
+
                 {/* Desktop Navigation */}
                 <ul className="hidden lg:flex gap-4 xl:gap-8 text-lg xl:text-xl">
                     {navigationList.map((item) => (
@@ -79,29 +78,28 @@ export default function NavigationBar() {
                         </li>
                     ))}
                 </ul>
-                
+
                 <div className="flex items-center gap-4">
-                    <Button variant={"red"} className="hidden sm:inline-flex text-sm md:text-base">ID | EN</Button>
-                    
+                    <Button  className="hidden sm:inline-flex text-sm md:text-base backdrop-blur-sm bg-red-600/90 hover:bg-red-700/90 rounded-full">ID</Button>
+
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="lg:hidden p-2 text-black hover:bg-gray-100 rounded-md transition-colors"
+                        className="lg:hidden p-2 text-black hover:bg-white/50 rounded-full transition-all backdrop-blur-sm"
                         aria-label="Toggle menu"
                     >
                         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
             </nav>
-            
+
             {/* Mobile Navigation */}
-            <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out border-t-2 border-black ${
-                mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 border-t-0'
-            }`}>
-                <ul className="flex flex-col p-4 space-y-2 bg-white">
+            <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-white/20 ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 border-t-0'
+                }`}>
+                <ul className="flex flex-col p-4 space-y-2 backdrop-blur-xl bg-white/50">
                     {navigationList.map((item, index) => (
-                        <li 
-                            key={item.name} 
+                        <li
+                            key={item.name}
                             className="relative"
                             style={{
                                 animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${index * 0.05}s both` : 'none'
@@ -110,23 +108,22 @@ export default function NavigationBar() {
                             <a
                                 href={item.href}
                                 onClick={(e) => handleNavClick(e, item)}
-                                className={`block py-3 px-4 text-lg font-semibold transition-colors rounded-md ${
-                                    activeItem === item.name
-                                        ? "bg-red-600 text-white"
-                                        : "hover:bg-gray-100"
-                                }`}
+                                className={`block py-3 px-4 text-lg font-semibold transition-all rounded-xl ${activeItem === item.name
+                                        ? "bg-gradient-to-r from-red-600 to-red-800 text-white shadow-lg"
+                                        : "hover:bg-white/50 backdrop-blur-sm"
+                                    }`}
                             >
                                 {item.name}
                             </a>
                         </li>
                     ))}
-                    <li 
+                    <li
                         className="pt-2"
                         style={{
                             animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${navigationList.length * 0.05}s both` : 'none'
                         }}
                     >
-                        <Button variant={"red"} className="w-full sm:hidden">ID | EN</Button>
+                        <Button className="w-full sm:hidden">EN</Button>
                     </li>
                 </ul>
             </div>

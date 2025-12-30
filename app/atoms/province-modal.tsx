@@ -21,7 +21,7 @@ export default function ProvinceModal({ provinceId, open, onOpenChange }: Provin
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="w-[95vw] max-w-6xl h-[90vh] p-0 overflow-hidden backdrop-blur-3xl bg-white/20 border-2 border-white/30 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-3xl">
-                <ScrollArea className="h-full w-full">
+                <div className="h-full overflow-y-auto overflow-x-hidden">
                     <div className="relative h-[300px] sm:h-[350px] lg:h-[400px] w-full overflow-hidden rounded-t-3xl">
                         {province.image_url && (
                             <Image
@@ -57,7 +57,7 @@ export default function ProvinceModal({ provinceId, open, onOpenChange }: Provin
                         {province.description && (
                             <div className="mb-10 backdrop-blur-md bg-white/40 p-6 rounded-2xl border border-white/30 shadow-lg">
                                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                                    About {province.title}
+                                    Tentang {province.title}
                                 </h3>
                                 <p className="text-base text-gray-700 leading-relaxed">
                                     {province.description}
@@ -65,16 +65,55 @@ export default function ProvinceModal({ provinceId, open, onOpenChange }: Provin
                             </div>
                         )}
 
-                        <div className="mt-10 pb-8 flex justify-center">
-                            <button
-                                onClick={() => onOpenChange(false)}
-                                className="backdrop-blur-lg bg-gradient-to-r from-red-600 to-red-800 text-white font-bold border-2 border-white/50 shadow-2xl rounded-full px-10 py-3 text-base hover:scale-105 hover:shadow-[0_8px_30px_rgb(220,38,38,0.5)] transition-all"
-                            >
-                                Tutup
-                            </button>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10">
+                            {province.capital && (
+                                <div className="backdrop-blur-lg bg-white/50 p-5 rounded-xl shadow-xl border border-white/40 hover:bg-white/60 transition-all">
+                                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Ibu Kota</h4>
+                                    <p className="text-lg font-bold text-gray-900">{province.capital}</p>
+                                </div>
+                            )}
+
+                            {province.population && (
+                                <div className="backdrop-blur-lg bg-white/50 p-5 rounded-xl shadow-xl border border-white/40 hover:bg-white/60 transition-all">
+                                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Populasi</h4>
+                                    <p className="text-lg font-bold text-gray-900">{province.population}</p>
+                                </div>
+                            )}
+
+                            {province.area_km2 && (
+                                <div className="backdrop-blur-lg bg-white/50 p-5 rounded-xl shadow-xl border border-white/40 hover:bg-white/60 transition-all">
+                                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Luas Wilayah</h4>
+                                    <p className="text-lg font-bold text-gray-900">{province.area_km2.toLocaleString("id-ID")} km²</p>
+                                </div>
+                            )}
+
+                            {province.region && (
+                                <div className="backdrop-blur-lg bg-white/50 p-5 rounded-xl shadow-xl border border-white/40 hover:bg-white/60 transition-all">
+                                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Region</h4>
+                                    <p className="text-lg font-bold text-gray-900">{province.region}</p>
+                                </div>
+                            )}
+
+                            {province.island && (
+                                <div className="backdrop-blur-lg bg-white/50 p-5 rounded-xl shadow-xl border border-white/40 hover:bg-white/60 transition-all">
+                                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Pulau</h4>
+                                    <p className="text-lg font-bold text-gray-900">{province.island}</p>
+                                </div>
+                            )}
+
+                            {province.coordinates && (
+                                <div className="backdrop-blur-lg bg-white/50 p-5 rounded-xl shadow-xl border border-white/40 hover:bg-white/60 transition-all">
+                                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Koordinat</h4>
+                                    <p className="text-lg font-bold text-gray-900">
+                                        {province.coordinates[0].toFixed(4)}°, {province.coordinates[1].toFixed(4)}°
+                                    </p>
+                                </div>
+                            )}
                         </div>
+
+                
                     </div>
-                </ScrollArea>
+                </div>
             </DialogContent>
         </Dialog>
     );

@@ -1,17 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { Oswald } from "next/font/google";
 import "./globals.css";
+import { Google_Sans_Flex } from "next/font/google";
 import NavigationBar from "./atoms/navigation-bar";
 
-const OswaldFont = Oswald({
+const GoogleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-oswald",
-  display: "swap", // Ensure text remains visible during font load
-  preload: true,
-  adjustFontFallback: true,
-})
-
+  variable: "--font-google-sans-flex",
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 export const metadata: Metadata = {
   title: "Nusantara",
   description: "The Archipelago of Knowledge",
@@ -46,7 +44,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${OswaldFont.variable} antialiased bg-gradient-to-br from-gray-50 via-white to-blue-50`}
+        className={`${GoogleSansFlex.variable} antialiased bg-gradient-to-br from-gray-50 via-white to-blue-50`}
       >
         <NavigationBar />
         {children}

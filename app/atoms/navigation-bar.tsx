@@ -53,7 +53,7 @@ export default function NavigationBar() {
     };
 
     return (
-        <div className={`fixed top-4 left-4 right-4 z-50 backdrop-blur-xl bg-white/70 border border-white/20 shadow-2xl rounded-2xl transition-all duration-300 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
+        <div className={`fixed top-4 left-4 right-4 z-50 backdrop-blur-md bg-white/40 border border-white/20 shadow-2xl rounded-2xl transition-all duration-300 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
             }`}>
             <nav className="flex items-center justify-between p-4 sm:p-6 mx-2 sm:mx-4 md:mx-6 lg:mx-8">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">Nusantara</h1>
